@@ -2,13 +2,11 @@ Summary:	Arkanoid clone
 Summary(pl):	Klon Arkanoida
 Name:		lbreakout2
 Version:	2.5
-%define bver	beta-8
-%define	brel	%(echo %{bver} | tr -d -)
-Release:	1.%{brel}.2
+Release:	2
 License:	GPL
 Group:		X11/Applications/Games
-Source0:	http://dl.sourceforge.net/lgames/%{name}-%{version}%{bver}.tar.gz
-# Source0-md5:	8172c662fd65145ada3158b1646f692b
+Source0:	http://dl.sourceforge.net/lgames/%{name}-%{version}.tar.gz
+# Source0-md5:	a58ffde70064afbfbb3dfb82ea6ec643
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Patch0:		%{name}-printf-security.patch
@@ -32,7 +30,7 @@ LBreakout to gra breakout z przyjemn± grafik±, efektami i d¼wiêkiem.
 Mo¿na graæ mysz± lub klawiatur± oraz tworzyæ w³asne poziomy.
 
 %prep
-%setup -q -n %{name}-%{version}%{bver}
+%setup -q
 %patch0 -p1
 
 %build

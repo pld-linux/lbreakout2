@@ -2,23 +2,25 @@ Summary:	Arkanoid clone
 Summary(pl):	Klon Arkanoida
 Name:		lbreakout2
 Version:	2.5
-%define bver	beta-3
+%define bver	beta-8
 %define	brel	%(echo %{bver} | tr -d -)
 Release:	1.%{brel}.2
 License:	GPL
 Group:		X11/Applications/Games
 Source0:	http://dl.sourceforge.net/lgames/%{name}-%{version}%{bver}.tar.gz
-# Source0-md5:	eff7e1e961f33e80e2c3a7f04daf69de
+# Source0-md5:	8172c662fd65145ada3158b1646f692b
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Patch0:		%{name}-printf-security.patch
-URL:		http://www.lgames.org/
+URL:		http://lgames.sourceforge.net/index.php?project=LBreakout2
 BuildRequires:	SDL-devel >= 1.1.5
 BuildRequires:	SDL_mixer-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libpng-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		_localstatedir	/var/games
 
 %description
 LBreakout is a breakout game with nice graphics, effects and sound.
@@ -37,13 +39,13 @@ Mo¿na graæ mysz± lub klawiatur± oraz tworzyæ w³asne poziomy.
 %{__aclocal}
 %{__autoconf}
 %{__automake}
-%configure \
-	--with-highscore-path=/var/games
+%configure
+
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{/var/games,%{_desktopdir},%{_pixmapsdir}}
+install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -58,7 +60,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc docs/*{html,jpg}
 %attr(2755,root,games) %{_bindir}/*
-%{_datadir}/games/lbreakout2
+%{_datadir}/lbreakout2
 %attr(664,root,games) %config(noreplace) %verify(not mtime md5 size) /var/games/lbreakout*
 %{_desktopdir}/*.desktop
 %{_pixmapsdir}/*.png

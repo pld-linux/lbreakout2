@@ -7,3 +7,4 @@ Icon=lbreakout2.png
 Exec=lbreakout2
 Terminal=false
 Type=Application
+# vi: encoding=utf-8

@@ -8,12 +8,12 @@ Group:		X11/Applications/Games
 Source0:	http://ftp1.sourceforge.net/lgames/%{name}-%{version}.tar.gz
 Source1:	%{name}.desktop
 Source2:	%{name}.png
-URL:		http://www.lgames.org
+URL:		http://www.lgames.org/
 BuildRequires:	SDL-devel >= 1.1.5
 BuildRequires:	SDL_mixer-devel
-BuildRequires:	libpng-devel
-BuildRequires:	automake
 BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libpng-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
@@ -36,17 +36,18 @@ rm -f missing
 aclocal
 autoconf
 automake -a -c
-%configure --with-highscore-path=/var/games
+%configure \
+	--with-highscore-path=/var/games
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_applnkdir}/Games,/var/games,%{_pixmapsdir}}
+install -d $RPM_BUILD_ROOT{%{_applnkdir}/Games/Arcade,/var/games,%{_pixmapsdir}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Games
+install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Games/Arcade
 install %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 
 %clean
@@ -54,9 +55,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc $RPM_BUILD_ROOT/usr/doc/lbreakout2/*
+%doc src/docs/*{html,jpg}
 %attr(2755,root,games) %{_bindir}/*
 %{_datadir}/games/lbreakout2
 %attr(664,root,games) %config(noreplace) %verify(not mtime md5 size) /var/games/lbreakout*
-%{_applnkdir}/Games/*
+%{_applnkdir}/Games/Arcade/*
 %{_pixmapsdir}/*

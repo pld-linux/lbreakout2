@@ -150,15 +150,18 @@ diff -Nur lbreakout2-2.5beta-3.orig/client/config.c lbreakout2-2.5beta-3/client/
  
      sprintf( file_name, "%s/%s", config.dir_name, CONFIG_FILE_NAME );
      if ( ( file = fopen( file_name, "w" ) ) == 0 )
-diff -Nur lbreakout2-2.5beta-3.orig/client/credit.c lbreakout2-2.5beta-3/client/credit.c
---- lbreakout2-2.5beta-3.orig/client/credit.c	2003-05-23 21:21:44.000000000 +0200
-+++ lbreakout2-2.5beta-3/client/credit.c	2004-02-03 22:12:34.310994232 +0100
-@@ -41,7 +41,7 @@
-     credit_cur = 0; credit_alpha = 0; credit_status = 0;
+--- lbreakout2-2.5beta-8/client/credit.c.orig	2004-06-12 14:44:47.000000000 +0200
++++ lbreakout2-2.5beta-8/client/credit.c	2004-07-04 19:08:11.402811008 +0200
+@@ -42,10 +42,10 @@
  
      /* string */
--    sprintf( credit_str, "%s (%i) - %s", name, level + 1, author );
-+    snprintf( credit_str, sizeof(credit_str), "%s (%i) - %s", name, level + 1, author );
+     if ( level_count > 0 )
+-        sprintf( credit_str, "%s (%i/%i) - %s", name, 
++        snprintf( credit_str, sizeof(credit_str), "%s (%i/%i) - %s", name, 
+                  level + 1, level_count, author );
+     else
+-        sprintf( credit_str, "%s (%i) - %s", name, level + 1, author );
++        snprintf( credit_str, sizeof(credit_str), "%s (%i) - %s", name, level + 1, author );
  
      /* position */
      credit_w = stk_font_string_width( font, credit_str ) + 4;
@@ -778,28 +781,18 @@ diff -Nur lbreakout2-2.5beta-3.orig/gui/stk.c lbreakout2-2.5beta-3/gui/stk.c
  #ifdef STK_DEBUG
      printf( "loading %s\n", path );
  #endif
-diff -Nur lbreakout2-2.5beta-3.orig/server/server.c lbreakout2-2.5beta-3/server/server.c
---- lbreakout2-2.5beta-3.orig/server/server.c	2003-06-04 17:39:47.000000000 +0200
-+++ lbreakout2-2.5beta-3/server/server.c	2004-02-03 22:12:34.383983136 +0100
-@@ -102,7 +102,7 @@
+--- lbreakout2-2.5beta-8/server/server.c.orig	2004-06-19 11:41:44.000000000 +0200
++++ lbreakout2-2.5beta-8/server/server.c	2004-07-04 19:16:45.785612936 +0200
+@@ -104,7 +104,7 @@
  {
  	ServerChannel *channel = salloc( 1, sizeof( ServerChannel ) );
  
--	snprintf( channel->name, 20, name );
-+	snprintf( channel->name, 20, "%s", name );
+-	strncpy(channel->name,name,20);
++	strncpy(channel->name,name,19);
  	channel->id    = global_id++;
  	channel->users = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
  
-@@ -140,7 +140,7 @@
- 	
- 	/* add a dummy user to channel which can be challenged
- 	 * but does nothing else */
--	snprintf( user->name, 16, name );
-+	snprintf( user->name, 16, "%s", name );
- 	user->id = global_id++;
- 	user->dummy = 1;
- 	net_build_addr( &addr, "localhost", 8000 );
-@@ -267,7 +267,7 @@
+@@ -273,7 +273,7 @@
  	if ( user == 0 ) return;
  
  	snprintf( errbuf, 128, "You have been kicked! Reason: %s", reason );
@@ -808,27 +801,16 @@ diff -Nur lbreakout2-2.5beta-3.orig/server/server.c lbreakout2-2.5beta-3/server/
  
  	errbuf[0] = MSG_DISCONNECT;
  	socket_transmit( &user->socket, CODE_BLUE, 1, errbuf );
-@@ -443,8 +443,8 @@
- 	if ( msg_read_int8() != MSG_CONNECT ) return;
- 
- 	protocol = msg_read_int8();
--	snprintf( name, 20, msg_read_string() ); name[19] = 0;
--	snprintf( pwd, 20, msg_read_string() ); pwd[19] = 0;
-+	snprintf( name, 20, "%s", msg_read_string() ); name[19] = 0;
-+	snprintf( pwd, 20, "%s", msg_read_string() ); pwd[19] = 0;
- 	if ( msg_read_failed() ) {
- 		sprintf( errbuf+1, "Login data corrupted, please retry." );
- 		goto failure;
-@@ -493,7 +493,7 @@
+@@ -504,7 +504,7 @@
  			user->admin = 1;
  		}
  		else
--			snprintf( user->name, 20, name );
-+			snprintf( user->name, 20, "%s", name );
+-                    strncpy(user->name,name,20);
++                    strncpy(user->name,name,19);
  		socket_init( &user->socket, &net_sender_addr );
  		user->hidden = 1; /* don't get the ADD_USER message */
  		channel_add_user( main_channel, user );
-@@ -575,7 +575,7 @@
+@@ -594,7 +594,7 @@
  			sprintf( buf, "search: %s: in channel %s: %s",
  				target->name, target_channel->name,
  				user->game?"playing":"chatting" );
@@ -837,7 +819,7 @@ diff -Nur lbreakout2-2.5beta-3.orig/server/server.c lbreakout2-2.5beta-3/server/
  		}
  	} else
  	if ( !strcmp( cmd, "version" ) ) {
-@@ -663,7 +663,7 @@
+@@ -686,7 +686,7 @@
  			msg_write_int16( server_frame_delay );
  			broadcast_all( msglen, msgbuf );
  		}
@@ -846,61 +828,36 @@ diff -Nur lbreakout2-2.5beta-3.orig/server/server.c lbreakout2-2.5beta-3/server/
  	} else
  	if ( !strcmp( cmd, "kick" ) && user->admin ) {
  		if ( (name = list_next( args )) == 0 ) {
-@@ -792,7 +792,7 @@
+@@ -816,7 +816,7 @@
  				}
  				break;
  			case MSG_ENTER_CHANNEL:
--				snprintf( name, 16, msg_read_string() );
-+				snprintf( name, 16, "%s", msg_read_string() );
+-                                strncpy(name,msg_read_string(),16);
++                                strncpy(name,msg_read_string(),16); name[15]=0;
  				if ( strchr( name, ' ' ) ) {
  					sprintf( errbuf, "Channel name must not contain blanks!" );
  					send_info( user, MSG_ERROR, errbuf );
-@@ -806,7 +806,7 @@
- 				ctx.challenger = user;
- 				id = msg_read_int32();
- 				ctx.challenged = find_user_by_id( id );
--				snprintf( ctx.name, 20, msg_read_string() );
-+				snprintf( ctx.name, 20, "%s", msg_read_string() );
- 				ctx.name[19] = 0;
- 				ctx.diff = msg_read_int8();
- 				ctx.rounds = msg_read_int8();
-@@ -1007,7 +1007,7 @@
+@@ -1032,8 +1032,9 @@
+ 				server_frame_delay = 1000/server_fps;
  			}
  		if ( !strcmp( "-D", argv[i] ) )
- 			if ( argv[i + 1] )
--				snprintf( datadir, 128, argv[i + 1] );
-+				snprintf( datadir, 128, "%s", argv[i + 1] );
+-			if ( argv[i + 1] )
+-				strncpy(datadir,argv[i + 1],128);
++			if ( argv[i + 1] ) {
++				strncpy(datadir,argv[i + 1],128); datadir[127]=0;
++			}
  		if ( !strcmp( "-h", argv[i] ) || !strcmp( "--help", argv[i] ) )
  			display_help();
  		if ( !strcmp( "-m", argv[i] ) )
-@@ -1024,7 +1024,7 @@
- 			}
- 		if ( !strcmp( "-a", argv[i] ) )
- 			if ( argv[i + 1] )
--				snprintf( admin_pwd, 15, argv[i + 1] );
-+				snprintf( admin_pwd, 15, "%s", argv[i + 1] );
- 	}
- }
- 
-diff -Nur lbreakout2-2.5beta-3.orig/server/server_game.c lbreakout2-2.5beta-3/server/server_game.c
---- lbreakout2-2.5beta-3.orig/server/server_game.c	2003-06-04 17:41:20.000000000 +0200
-+++ lbreakout2-2.5beta-3/server/server_game.c	2004-02-03 22:12:34.385982832 +0100
-@@ -224,8 +224,8 @@
+--- lbreakout2-2.5beta-8/server/server_game.c.orig	2004-06-19 11:46:54.000000000 +0200
++++ lbreakout2-2.5beta-8/server/server_game.c	2004-07-04 19:04:24.630285672 +0200
+@@ -243,8 +243,8 @@
  	game->set = find_levelset( ctx->name );
  	if ( game->set == 0 ) {
  		/* should never happen... */
 -		sprintf( errbuf, "game_create_failed: no levelset '%s' found\n", ctx->name );
 -		send_info( ctx->challenger, MSG_ERROR, errbuf );
 +		snprintf( errbuf, 128, "game_create_failed: no levelset '%s' found\n", ctx->name );
-+		send_info( ctx->challenger, MSG_ERROR, "%s", errbuf );
- 		free( game );
- 		return;
- 	}
-@@ -236,7 +236,7 @@
- 	if ( (game->game = game_create( GT_NETWORK, ctx->diff, 100/*no rel warp*/ )) == 0 ) {
- 		/* send error to user */
- 		snprintf( errbuf, 128, "game_create failed: out of memory" );
--		send_info( ctx->challenger, MSG_ERROR, errbuf );
 +		send_info( ctx->challenger, MSG_ERROR, "%s", errbuf );
  		free( game );
  		return;

@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=LBreakout2
-Comment=Arkanoid clone
-Comment[pl]=Klon arkanoida
-Icon=lbreakout2.png
-Exec=lbreakout2
-Terminal=0
-Type=Application

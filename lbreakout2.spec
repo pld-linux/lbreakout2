@@ -37,7 +37,7 @@ mv -f client/png.h client/pngm.h
 
 %build
 rm -f missing
-aclocal
+%{__aclocal}
 %{__autoconf}
 %{__automake}
 %configure \

@@ -8,6 +8,7 @@ Group:		X11/Applications/Games
 Source0:	http://ftp1.sourceforge.net/lgames/%{name}-%{version}.tar.gz
 Source1:	%{name}.desktop
 Source2:	%{name}.png
+Patch0:		%{name}-png-conflict.patch
 URL:		http://www.lgames.org/
 BuildRequires:	SDL-devel >= 1.1.5
 BuildRequires:	SDL_mixer-devel
@@ -30,6 +31,9 @@ Mo¿na graæ mysz± lub klawiatur± oraz tworzyæ w³asne poziomy.
 
 %prep
 %setup -q
+%patch -p1
+
+mv -f client/png.h client/pngm.h
 
 %build
 rm -f missing
@@ -55,7 +59,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc src/docs/*{html,jpg}
+%doc docs/*{html,jpg}
 %attr(2755,root,games) %{_bindir}/*
 %{_datadir}/games/lbreakout2
 %attr(664,root,games) %config(noreplace) %verify(not mtime md5 size) /var/games/lbreakout*

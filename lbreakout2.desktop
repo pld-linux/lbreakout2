@@ -7,4 +7,5 @@ Icon=lbreakout2.png
 Exec=lbreakout2
 Terminal=false
 Type=Application
+Categories=Game;ArcadeGame;
 # vi: encoding=utf-8

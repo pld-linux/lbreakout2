@@ -174,9 +174,9 @@ diff -Nur lbreakout2-2.5beta-3.orig/client/display.c lbreakout2-2.5beta-3/client
      int i;
 -    char str[64], numstr[10];
 +    char str[64], numstr[20];
+     StkFont *font;
      Display *display;
      if ( displays == 0 ) return;
-     list_reset( displays );
 diff -Nur lbreakout2-2.5beta-3.orig/client/editor.c lbreakout2-2.5beta-3/client/editor.c
 --- lbreakout2-2.5beta-3.orig/client/editor.c	2003-05-18 19:22:11.000000000 +0200
 +++ lbreakout2-2.5beta-3/client/editor.c	2004-02-03 22:12:34.314993624 +0100
@@ -269,9 +269,9 @@ diff -Nur lbreakout2-2.5beta-3.orig/client/game.c lbreakout2-2.5beta-3/client/ga
  		   at the top of the frame */
 -		sprintf( str, "%s", player->name );
 +		snprintf( str, sizeof(str), "%s", player->name );
- 		length = ( strlen( player->name ) ) * 8;
- 		display_player[0] = displays_add( 402, 0,
- 				length + 4, 16, str, player->lives, 0 );
+ 		length = strlen(best_name);
+ 		if (strlen(player->name)>length )
+ 		  length = strlen(player->name);
 @@ -173,14 +173,14 @@
  		display_score[0]->use_alpha = 0;
  	} else {

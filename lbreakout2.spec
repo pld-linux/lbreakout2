@@ -1,12 +1,12 @@
 Summary:	Arkanoid clone
 Summary(pl):	Klon Arkanoida
 Name:		lbreakout2
-Version:	2.5
-Release:	2
+Version:	2.5.1
+Release:	1
 License:	GPL
 Group:		X11/Applications/Games
 Source0:	http://dl.sourceforge.net/lgames/%{name}-%{version}.tar.gz
-# Source0-md5:	a58ffde70064afbfbb3dfb82ea6ec643
+# Source0-md5:	48dbb22cae6d5012827188fafc51963b
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Patch0:		%{name}-printf-security.patch
@@ -43,6 +43,7 @@ Mo¿na graæ mysz± lub klawiatur± oraz tworzyæ w³asne poziomy.
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir}}
 
 %{__make} install \

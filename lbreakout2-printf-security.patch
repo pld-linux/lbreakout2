@@ -425,18 +425,17 @@ diff -Nur lbreakout2-2.5beta-3.orig/client/value.c lbreakout2-2.5beta-3/client/v
          case VALUE_KEY:
              if ( value->grab ) { strcpy( value->val_str, "???" ); break; }
              switch ( *value->val_int ) {
-diff -Nur lbreakout2-2.5beta-3.orig/common/net.c lbreakout2-2.5beta-3/common/net.c
---- lbreakout2-2.5beta-3.orig/common/net.c	2003-06-04 16:24:41.000000000 +0200
-+++ lbreakout2-2.5beta-3/common/net.c	2004-02-03 22:12:34.344989064 +0100
-@@ -275,7 +275,7 @@
- 				sys_printf( "net_query_ip: unknown unix path\n" );
- 			}   
- 			else
--				snprintf( str, sun->sun_path, len );*/
-+				snprintf( str, len, "%s", sun->sun_path );*/
- 			break;
- 		default:
- 			snprintf( str, len, "unknown" );
+--- lbreakout2-2.5/common/net.c.orig	2004-08-07 16:54:15.000000000 +0200
++++ lbreakout2-2.5/common/net.c	2004-08-30 23:04:07.021963672 +0200
+@@ -389,7 +389,7 @@
+               sys_printf( "net_query_ip: unknown unix path\n" );
+               }   
+               else
+-              snprintf( str, sun->sun_path, len );*/
++              snprintf( str, len, "%s", sun->sun_path );*/
+             break;
+         default:
+             snprintf( str, len, "unknown" );
 diff -Nur lbreakout2-2.5beta-3.orig/common/parser.c lbreakout2-2.5beta-3/common/parser.c
 --- lbreakout2-2.5beta-3.orig/common/parser.c	2002-07-31 17:06:08.000000000 +0200
 +++ lbreakout2-2.5beta-3/common/parser.c	2004-02-03 22:12:34.351988000 +0100

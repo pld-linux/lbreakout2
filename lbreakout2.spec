@@ -1,7 +1,7 @@
 Summary:	Arkanoid clone
 Summary(pl):	Klon Arkanoida
 Name:		lbreakout2
-Version:	2.3.6
+Version:	2.4
 Release:	1
 License:	GPL
 Group:		X11/Applications/Games
@@ -31,9 +31,9 @@ Mo¿na graæ mysz± lub klawiatur± oraz tworzyæ w³asne poziomy.
 
 %prep
 %setup -q
-%patch -p1
+#%patch -p1
 
-mv -f client/png.h client/pngm.h
+#mv -f client/png.h client/pngm.h
 
 %build
 rm -f missing

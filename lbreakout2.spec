@@ -6,6 +6,7 @@ Release:	1
 License:	GPL
 Group:		X11/Applications/Games
 Source0:	http://dl.sourceforge.net/lgames/%{name}-%{version}.tar.gz
+# Source0-md5:	340d4b5cae310afb3f15d11b185ae09f
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Patch0:		%{name}-png-conflict.patch

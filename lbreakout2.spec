@@ -20,6 +20,11 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_prefix		/usr/X11R6
 %define		_mandir		%{_prefix}/man
 
+# temporary - workaround for gcc 3.[12] ICE 
+%ifarch athlon
+%define		optflags	-O2 -march=athlon -mno-mmx -mno-3dnow
+%endif
+
 %description
 LBreakout is a breakout game with nice graphics, effects and sound.
 You can play it either with mouse or keyboard and you can create your

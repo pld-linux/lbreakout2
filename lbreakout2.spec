@@ -60,6 +60,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc docs/*{html,jpg}
 %attr(2755,root,games) %{_bindir}/*
 %{_datadir}/lbreakout2
-%attr(664,root,games) %config(noreplace) %verify(not mtime md5 size) /var/games/lbreakout*
+%attr(664,root,games) %config(noreplace) %verify(not md5 mtime size) /var/games/lbreakout*
 %{_desktopdir}/*.desktop
 %{_pixmapsdir}/*.png

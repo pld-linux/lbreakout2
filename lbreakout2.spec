@@ -1,5 +1,5 @@
 Summary:	Arkanoid clone
-Summary(pl):	Klon Arkanoida
+Summary(pl.UTF-8):   Klon Arkanoida
 Name:		lbreakout2
 Version:	2.5.2
 Release:	1
@@ -25,9 +25,9 @@ LBreakout is a breakout game with nice graphics, effects and sound.
 You can play it either with mouse or keyboard and you can create your
 own levels.
 
-%description -l pl
-LBreakout to gra breakout z przyjemn± grafik±, efektami i d¼wiêkiem.
-Mo¿na graæ mysz± lub klawiatur± oraz tworzyæ w³asne poziomy.
+%description -l pl.UTF-8
+LBreakout to gra breakout z przyjemnÄ… grafikÄ…, efektami i dÅºwiÄ™kiem.
+MoÅ¼na graÄ‡ myszÄ… lub klawiaturÄ… oraz tworzyÄ‡ wÅ‚asne poziomy.
 
 %prep
 %setup -q

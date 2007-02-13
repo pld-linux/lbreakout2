@@ -1,5 +1,5 @@
 Summary:	Arkanoid clone
-Summary(pl.UTF-8):   Klon Arkanoida
+Summary(pl.UTF-8):	Klon Arkanoida
 Name:		lbreakout2
 Version:	2.5.2
 Release:	1

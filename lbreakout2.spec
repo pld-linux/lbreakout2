@@ -1,21 +1,21 @@
 Summary:	Arkanoid clone
 Summary(pl.UTF-8):	Klon Arkanoida
 Name:		lbreakout2
-Version:	2.5.2
+Version:	2.6
 Release:	1
-License:	GPL
+License:	GPL v2+
 Group:		X11/Applications/Games
-Source0:	http://dl.sourceforge.net/lgames/%{name}-%{version}.tar.gz
-# Source0-md5:	ddec8888c86845cedc85b6259d2cd885
+Source0:	http://downloads.sourceforge.net/lgames/%{name}-%{version}.tar.gz
+# Source0-md5:	fc5ae1e340953fdb9e35fd3e40dfc87f
 Source1:	%{name}.desktop
 Source2:	%{name}.png
-Patch0:		%{name}-printf-security.patch
 URL:		http://lgames.sourceforge.net/index.php?project=LBreakout2
 BuildRequires:	SDL-devel >= 1.1.5
 BuildRequires:	SDL_mixer-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libpng-devel
+BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_localstatedir	/var/games
@@ -31,7 +31,6 @@ Można grać myszą lub klawiaturą oraz tworzyć własne poziomy.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__aclocal}
@@ -52,13 +51,15 @@ install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir}}
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 install %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 
+%find_lang %{name} --all-name
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc docs/*{html,jpg}
-%attr(2755,root,games) %{_bindir}/*
+%doc AUTHORS ChangeLog README TODO docs/*{html,jpg}
+%attr(755,root,root) %{_bindir}/*
 %{_datadir}/lbreakout2
 %attr(664,root,games) %config(noreplace) %verify(not md5 mtime size) /var/games/lbreakout*
 %{_desktopdir}/*.desktop

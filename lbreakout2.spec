@@ -1,14 +1,15 @@
 Summary:	Arkanoid clone
 Summary(pl.UTF-8):	Klon Arkanoida
 Name:		lbreakout2
-Version:	2.6.1
+Version:	2.6.2
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games
 Source0:	http://downloads.sourceforge.net/lgames/%{name}-%{version}.tar.gz
-# Source0-md5:	0360a50c038db26c75c4dc84bcee3196
+# Source0-md5:	f8b5b6c6d08aa7eacc7c3050e6c888ec
 Source1:	%{name}.desktop
 Source2:	%{name}.png
+Patch0:		%{name}-useless_files.patch
 URL:		http://lgames.sourceforge.net/index.php?project=LBreakout2
 BuildRequires:	SDL-devel >= 1.1.5
 BuildRequires:	SDL_mixer-devel
@@ -32,6 +33,7 @@ Można grać myszą lub klawiaturą oraz tworzyć własne poziomy.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__aclocal}
@@ -60,7 +62,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README TODO docs/*{html,jpg}
-%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_bindir}/lbreakout2*
 %{_datadir}/lbreakout2
 %attr(664,root,games) %config(noreplace) %verify(not md5 mtime size) /var/games/lbreakout*
 %{_desktopdir}/*.desktop

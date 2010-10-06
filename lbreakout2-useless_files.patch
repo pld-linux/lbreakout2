@@ -1,0 +1,17 @@
+--- lbreakout2-2.6.2/Makefile.am~	2010-10-04 15:41:03.000000000 +0200
++++ lbreakout2-2.6.2/Makefile.am	2010-10-06 10:10:59.628025570 +0200
+@@ -1,4 +1,4 @@
+-SUBDIRS = intl m4 po common gui game server client docs
++SUBDIRS = intl m4 po common gui game server client
+ 
+ EXTRA_DIST = config.rpath AUTHORS COPYING ChangeLog INSTALL README \
+ README-SDL.txt TODO lbreakout2.spec touchall lbreakout32.gif \
+@@ -7,7 +7,7 @@
+ desktopdir = $(datadir)/applications
+ desktop_DATA = lbreakout2.desktop
+ icondir = $(datadir)/icons
+-icon_DATA = lbreakout48.gif
++icon_DATA = 
+ 
+ WIN32_TEXT = AUTHORS COPYING ChangeLog INSTALL README README-SDL.txt \
+ TODO lbreakout2.spec ABOUT-NLS

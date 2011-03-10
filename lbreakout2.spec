@@ -1,12 +1,12 @@
 Summary:	Arkanoid clone
 Summary(pl.UTF-8):	Klon Arkanoida
 Name:		lbreakout2
-Version:	2.6.2
+Version:	2.6.3
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games
 Source0:	http://downloads.sourceforge.net/lgames/%{name}-%{version}.tar.gz
-# Source0-md5:	f8b5b6c6d08aa7eacc7c3050e6c888ec
+# Source0-md5:	43900187bc935475cd6489569cd2230a
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Patch0:		%{name}-useless_files.patch

@@ -15,7 +15,7 @@ BuildRequires:	SDL-devel >= 1.1.5
 BuildRequires:	SDL_mixer-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	libpng-devel
 BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)

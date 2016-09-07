@@ -1,0 +1,12 @@
+--- lbreakout2-2.6.5/lbreakout2.desktop.in.orig	2013-05-03 19:06:20.000000000 +0200
++++ lbreakout2-2.6.5/lbreakout2.desktop.in	2016-09-07 17:03:45.400520542 +0200
+@@ -1,7 +1,8 @@
+ [Desktop Entry]
+ Name=LBreakout2
+ Comment=A ball-and-paddle game with nice graphics.
++Comment[pl]=Gra z piłeczką i paletką, z ładną grafiką.
+ Exec=lbreakout2
+ Icon=
+ Type=Application
+-Categories=Game;
++Categories=Game;ArcadeGame;

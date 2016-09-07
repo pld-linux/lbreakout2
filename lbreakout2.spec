@@ -1,23 +1,23 @@
-Summary:	Arkanoid clone
-Summary(pl.UTF-8):	Klon Arkanoida
+Summary:	Breakout/Arkanoid style arcade game
+Summary(pl.UTF-8):	Gra w stylu Breakouta/Arkanoida
 Name:		lbreakout2
-Version:	2.6.3
-Release:	4
+Version:	2.6.5
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games
 Source0:	http://downloads.sourceforge.net/lgames/%{name}-%{version}.tar.gz
-# Source0-md5:	43900187bc935475cd6489569cd2230a
-Source1:	%{name}.desktop
-Source2:	%{name}.png
+# Source0-md5:	1a9238b83f9f13f09b7a4d53e00b4e84
 Patch0:		%{name}-useless_files.patch
-URL:		http://lgames.sourceforge.net/index.php?project=LBreakout2
-BuildRequires:	SDL-devel >= 1.1.5
+Patch1:		%{name}-desktop.patch
+URL:		http://lgames.sourceforge.net/LBreakout2
+BuildRequires:	SDL-devel >= 1.2.0
 BuildRequires:	SDL_mixer-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-tools
 BuildRequires:	libpng-devel
 BuildRequires:	rpmbuild(macros) >= 1.268
+BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_localstatedir	/var/games
@@ -34,6 +34,9 @@ Można grać myszą lub klawiaturą oraz tworzyć własne poziomy.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+
+%{__sed} -i -e 's,\$(datadir)/icons,$(datadir)/pixmaps,' Makefile.am
 
 %build
 %{__aclocal}
@@ -46,13 +49,8 @@ Można grać myszą lub klawiaturą oraz tworzyć własne poziomy.
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir}}
-
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
-install %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 
 %find_lang %{name} --all-name
 
@@ -62,8 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README TODO docs/*{html,jpg}
-%attr(755,root,root) %{_bindir}/lbreakout2*
+%attr(2755,root,games) %{_bindir}/lbreakout2
+%attr(2755,root,games) %{_bindir}/lbreakout2server
 %{_datadir}/lbreakout2
-%attr(664,root,games) %config(noreplace) %verify(not md5 mtime size) /var/games/lbreakout*
-%{_desktopdir}/*.desktop
-%{_pixmapsdir}/*.png
+%attr(664,root,games) %config(noreplace) %verify(not md5 mtime size) /var/games/lbreakout2.hscr
+%{_desktopdir}/lbreakout2.desktop
+%{_pixmapsdir}/lbreakout48.gif

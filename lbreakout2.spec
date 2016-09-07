@@ -1,3 +1,4 @@
+%define	levels_ver	20160512
 Summary:	Breakout/Arkanoid style arcade game
 Summary(pl.UTF-8):	Gra w stylu Breakouta/Arkanoida
 Name:		lbreakout2
@@ -7,6 +8,8 @@ License:	GPL v2+
 Group:		X11/Applications/Games
 Source0:	http://downloads.sourceforge.net/lgames/%{name}-%{version}.tar.gz
 # Source0-md5:	1a9238b83f9f13f09b7a4d53e00b4e84
+Source1:	http://downloads.sourceforge.net/lgames/%{name}-levelsets-%{levels_ver}.tar.gz
+# Source1-md5:	40aad93c3b3131aa81d08ea8901bf00b
 Patch0:		%{name}-useless_files.patch
 Patch1:		%{name}-desktop.patch
 URL:		http://lgames.sourceforge.net/LBreakout2
@@ -52,6 +55,9 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+# additional levels
+tar xzf %{SOURCE1} -C $RPM_BUILD_ROOT%{_datadir}/lbreakout2/levels
+
 %find_lang %{name} --all-name
 
 %clean
@@ -62,7 +68,16 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog README TODO docs/*{html,jpg}
 %attr(2755,root,games) %{_bindir}/lbreakout2
 %attr(2755,root,games) %{_bindir}/lbreakout2server
-%{_datadir}/lbreakout2
+%dir %{_datadir}/lbreakout2
+%dir %{_datadir}/lbreakout2/gfx
+%{_datadir}/lbreakout2/gfx/*.png
+%{_datadir}/lbreakout2/gfx/AbsoluteB
+%{_datadir}/lbreakout2/gfx/Classic
+%{_datadir}/lbreakout2/gfx/Moiree
+%{_datadir}/lbreakout2/gfx/Oz
+%{_datadir}/lbreakout2/gui_theme
+%{_datadir}/lbreakout2/levels
+%{_datadir}/lbreakout2/sounds
 %attr(664,root,games) %config(noreplace) %verify(not md5 mtime size) /var/games/lbreakout2.hscr
 %{_desktopdir}/lbreakout2.desktop
 %{_pixmapsdir}/lbreakout48.gif

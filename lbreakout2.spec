@@ -36,8 +36,8 @@ Można grać myszą lub klawiaturą oraz tworzyć własne poziomy.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 %{__sed} -i -e 's,\$(datadir)/icons,$(datadir)/pixmaps,' Makefile.am
 
